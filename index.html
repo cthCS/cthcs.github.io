@@ -1,0 +1,210 @@
+---
+layout: default
+title: List stuff
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collapsible Task List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .header-button {
+            cursor: pointer;
+            padding: 12px 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            transition: 0.3s;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            margin-bottom: 10px;
+            border-radius: 0 0 5px 5px;
+        }
+
+        .content ul {
+            list-style-type: none;
+            padding: 10px 0 10px 10px;
+            margin: 0;
+        }
+
+        .content li {
+            padding: 8px 0;
+        }
+
+        .content li:last-child {
+            border-bottom: none;
+        }
+
+        /* Style for the completion checkbox and label */
+        .task-item label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .task-item input[type="checkbox"] {
+            margin-right: 10px;
+            margin-left: 10px;
+            min-width: 18px;
+            min-height: 18px;
+            cursor: pointer;
+        }
+
+        .completed-task {
+            text-decoration: line-through;
+            color: #888;
+            font-style: italic;
+        }
+
+        .arrow {
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .active .arrow {
+            transform: rotate(90deg);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>📝 Ironman Together Strong</h1>
+
+    <button class="header-button" onclick="toggleCollapse(this)">
+        <span>Praying for Prayer Potions</span>
+        <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+        <ul>
+            <li class="task-item">
+                <label>
+                    Do quests or something
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+            <li class="task-item">
+                <label>
+                    Setup Farms
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+            <li class="task-item">
+                <label>
+                    Get Herblore to like a million (30s)
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+        </ul>
+    </div>
+
+    <button class="header-button" onclick="toggleCollapse(this)">
+        <span>91 or 95 Slayer idk</span>
+        <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+        <ul>
+            <li class="task-item">
+                <label>
+                    Kill monsters
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+            <li class="task-item">
+                <label>
+                    Queue League
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+            <li class="task-item">
+                <label>
+                    Depression
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+        </ul>
+    </div>
+
+    <button class="header-button" onclick="toggleCollapse(this)">
+        <span>idk just kinda vibe</span>
+        <span class="arrow">▶</span>
+    </button>
+    <div class="content">
+        <ul>
+            <li class="task-item">
+                <label>
+                    Beat the game
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+            <li class="task-item">
+                <label>
+                    Get 99 Agility (jk)
+                    <input type="checkbox" onchange="toggleCompletion(this)">
+                </label>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        /**
+         * Toggles the collapse/expand state of the content section associated with the button.
+         * @param {HTMLElement} button - The button element that was clicked.
+         */
+        function toggleCollapse(button) {
+            // Toggle the 'active' class on the button itself
+            button.classList.toggle("active");
+
+            // Get the immediate next element, which is the 'content' div
+            const content = button.nextElementSibling;
+
+            // Check if the content is currently visible (max-height > 0)
+            if (content.style.maxHeight) {
+                // If it's open, close it by setting max-height to null/0
+                content.style.maxHeight = null;
+            } else {
+                // If it's closed, open it by setting max-height to its scroll height
+                // This ensures it expands to fit all content
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+
+        /**
+         * Toggles the 'completed-task' class on the task label based on the checkbox state.
+         * @param {HTMLElement} checkbox - The checkbox element that was clicked.
+         */
+        function toggleCompletion(checkbox) {
+            // Get the parent <label> element
+            const label = checkbox.parentElement;
+
+            // Get the parent <li> element, which is the .task-item
+            const listItem = label.parentElement;
+
+            // Check if the checkbox is checked and apply/remove the class accordingly
+            if (checkbox.checked) {
+                listItem.classList.add("completed-task");
+            } else {
+                listItem.classList.remove("completed-task");
+            }
+        }
+    </script>
+</body>
+</html>
